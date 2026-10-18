@@ -10,9 +10,9 @@
 <meta name="description" content="Zehn Spielmodi mit Denk- und Reaktionsaufgaben für ein bis vier Personen.">
 <title>Blitz Duell</title>
 <style>
-:root{color-scheme:light;--bg:#f5f7fb;--paper:#ffffff;--soft:#edf2f8;--text:#16243a;--muted:#65758a;--line:#dbe4ee;--accent:#2275e8;--accent-ink:#fff;--winbg:#bdf4d2;--wintext:#075834;--losebg:#ffe0e0;--losetext:#9d2633;--waitbg:#f9bdc5;--warnbg:#ffe2a2;--go-bg:#7ee7a4;--quietbg:#e9eff6;--p0:#e45755;--p1:#287fd1;--p2:#13a079;--p3:#9a65cb}
-:root[data-theme="dark"]{color-scheme:dark;--bg:#111a26;--paper:#202d3d;--soft:#2c3d50;--text:#f5f8fc;--muted:#afbdd0;--line:#40546a;--accent:#8ec1ff;--accent-ink:#13243a;--winbg:#145e42;--wintext:#d9ffe8;--losebg:#78333b;--losetext:#fff0f1;--waitbg:#783f49;--warnbg:#866223;--go-bg:#196d4c;--quietbg:#344252;--p0:#ff8b8b;--p1:#90c6ff;--p2:#76e2b9;--p3:#d4acff}
-@media(prefers-color-scheme:dark){:root[data-theme="auto"]{color-scheme:dark;--bg:#111a26;--paper:#202d3d;--soft:#2c3d50;--text:#f5f8fc;--muted:#afbdd0;--line:#40546a;--accent:#8ec1ff;--accent-ink:#13243a;--winbg:#145e42;--wintext:#d9ffe8;--losebg:#78333b;--losetext:#fff0f1;--waitbg:#783f49;--warnbg:#866223;--go-bg:#196d4c;--quietbg:#344252;--p0:#ff8b8b;--p1:#90c6ff;--p2:#76e2b9;--p3:#d4acff}}
+:root{color-scheme:light;--bg:#f5f7fb;--paper:#ffffff;--soft:#edf2f8;--text:#16243a;--muted:#65758a;--line:#dbe4ee;--accent:#2275e8;--accent-ink:#fff;--winbg:#88ecad;--wintext:#075834;--losebg:#ffc1c5;--losetext:#82202c;--waitbg:#f9bdc5;--warnbg:#ffe2a2;--go-bg:#7ee7a4;--quietbg:#e9eff6;--p0:#e45755;--p1:#287fd1;--p2:#13a079;--p3:#9a65cb}
+:root[data-theme="dark"]{color-scheme:dark;--bg:#111a26;--paper:#202d3d;--soft:#2c3d50;--text:#f5f8fc;--muted:#afbdd0;--line:#40546a;--accent:#8ec1ff;--accent-ink:#13243a;--winbg:#17734d;--wintext:#e7fff0;--losebg:#943d47;--losetext:#fff2f4;--waitbg:#783f49;--warnbg:#866223;--go-bg:#196d4c;--quietbg:#344252;--p0:#ff8b8b;--p1:#90c6ff;--p2:#76e2b9;--p3:#d4acff}
+@media(prefers-color-scheme:dark){:root[data-theme="auto"]{color-scheme:dark;--bg:#111a26;--paper:#202d3d;--soft:#2c3d50;--text:#f5f8fc;--muted:#afbdd0;--line:#40546a;--accent:#8ec1ff;--accent-ink:#13243a;--winbg:#17734d;--wintext:#e7fff0;--losebg:#943d47;--losetext:#fff2f4;--waitbg:#783f49;--warnbg:#866223;--go-bg:#196d4c;--quietbg:#344252;--p0:#ff8b8b;--p1:#90c6ff;--p2:#76e2b9;--p3:#d4acff}}
 *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
 [hidden]{display:none!important}
 html,body{height:100%;margin:0}
@@ -25,13 +25,12 @@ button,input{font:inherit}button{cursor:pointer;touch-action:manipulation}button
 #arena[data-players="2"] .p1{grid-row:1}#arena[data-players="2"] .p0{grid-row:2}
 #arena[data-players="3"] .p0{grid-row:2;grid-column:1/span 2}#arena[data-players="3"] .p1{grid-row:1;grid-column:1}#arena[data-players="3"] .p2{grid-row:1;grid-column:2}
 #arena[data-players="4"] .p0{grid-row:2;grid-column:1}#arena[data-players="4"] .p1{grid-row:2;grid-column:2}#arena[data-players="4"] .p2{grid-row:1;grid-column:1}#arena[data-players="4"] .p3{grid-row:1;grid-column:2}
-.player-card{container-type:size;position:relative;min-width:0;min-height:0;display:flex;align-items:center;justify-content:center;overflow:hidden;border:2px solid color-mix(in srgb,var(--player) 45%,var(--line));border-radius:clamp(15px,3vw,27px);background:color-mix(in srgb,var(--player) 6%,var(--paper));transition:background .13s,border-color .13s}
-.player-card::before{content:"";position:absolute;inset:0 auto 0 0;width:5px;background:var(--player);z-index:1}
+.player-card{container-type:size;position:relative;min-width:0;min-height:0;display:flex;align-items:center;justify-content:center;overflow:hidden;border:3px solid var(--player);border-radius:clamp(15px,3vw,27px);background:color-mix(in srgb,var(--player) 6%,var(--paper));transition:background .13s,border-color .13s,box-shadow .13s}
 #arena[data-scene="wait"] .player-card:not(.wrong){background:var(--waitbg)}
 #arena[data-scene="warn"] .player-card:not(.wrong){background:var(--warnbg)}
 #arena[data-scene="live"] .player-card:not(.wrong){background:var(--go-bg)}
-.player-card.winner{background:var(--winbg)!important;border-color:var(--wintext);color:var(--wintext)}
-.player-card.wrong{background:var(--losebg)!important;border-color:var(--losetext);color:var(--losetext)}
+.player-card.winner{background:var(--winbg)!important;border-color:#13ac5b;box-shadow:inset 0 0 0 2px #13ac5b;color:var(--wintext)}
+.player-card.wrong{background:var(--losebg)!important;border-color:#ec4559;box-shadow:inset 0 0 0 2px #ec4559;color:var(--losetext)}
 .player-card.missed{background:var(--quietbg)!important}
 .board{container-type:size;position:relative;flex:none;width:100%;height:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:clamp(4px,2.8cqmin,15px);padding:clamp(8px,4cqmin,26px);padding-top:clamp(33px,12cqmin,62px);text-align:center}
 #arena[data-players="2"] .p1 .board,#arena[data-players="3"] .p1 .board,#arena[data-players="3"] .p2 .board,#arena[data-players="4"] .p2 .board,#arena[data-players="4"] .p3 .board{transform:rotate(180deg)}
@@ -42,28 +41,46 @@ button,input{font:inherit}button{cursor:pointer;touch-action:manipulation}button
 .game-sub{font-size:clamp(11px,4cqmin,17px);font-weight:700;line-height:1.2}
 .memory-items{display:flex;flex-wrap:wrap;justify-content:center;gap:clamp(3px,2cqmin,10px);width:100%}
 .memory-items span{border:1px solid var(--line);background:var(--paper);color:var(--text);padding:clamp(5px,3cqmin,12px);border-radius:12px;font-size:clamp(12px,6cqmin,25px);font-weight:800}
-.choices{width:min(96%,650px);display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:clamp(4px,2.2cqmin,12px)}
-.choice{min-width:0;min-height:clamp(35px,14cqmin,78px);padding:5px 3px;border:1px solid color-mix(in srgb,var(--text) 15%,var(--line));border-radius:clamp(10px,3cqmin,19px);background:var(--paper);color:var(--text);font-size:clamp(15px,7cqmin,31px);font-weight:850;line-height:1.05;overflow-wrap:anywhere}
+.choices{width:min(100%,780px);display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:clamp(4px,2.2cqmin,12px)}
+.choice{min-width:0;min-height:clamp(42px,19cqmin,112px);padding:6px 4px;border:1px solid color-mix(in srgb,var(--text) 15%,var(--line));border-radius:clamp(10px,3cqmin,19px);background:var(--paper);color:var(--text);font-size:clamp(16px,7.5cqmin,37px);font-weight:850;line-height:1.05;overflow-wrap:anywhere}
 .choice:active{background:var(--soft);transform:scale(.98)}
-.sight-grid{width:min(90cqw,42cqh,370px);max-width:80%;aspect-ratio:1;display:grid;gap:clamp(3px,1cqmin,8px)}.sight-cell{min-width:0;min-height:0;border:0;border-radius:15%;padding:0}
+.sight-grid{flex:none;width:min(96cqw,calc(100cqh - 70px));max-width:100%;aspect-ratio:1;display:grid;gap:clamp(3px,1.6cqmin,10px)}.sight-cell{min-width:0;min-height:0;border:0;border-radius:13%;padding:0;touch-action:manipulation}
+.sequence-items{display:flex;align-items:center;justify-content:center;flex-wrap:wrap;gap:clamp(4px,1.8cqmin,11px);max-width:100%;width:100%}
+.sequence-number{display:grid;place-items:center;min-width:clamp(40px,14cqmin,95px);min-height:clamp(43px,15cqmin,95px);padding:clamp(5px,1.7cqmin,12px);background:var(--paper);border:1.5px solid var(--line);border-radius:clamp(10px,2.8cqmin,18px);font-size:clamp(19px,9cqmin,53px);font-weight:900;font-variant-numeric:tabular-nums;line-height:1}
+.sequence-number.missing{background:var(--soft);color:var(--accent);border-color:var(--accent)}
 .feedback-mark{font-size:clamp(42px,22cqmin,130px);font-weight:900;line-height:1}.feedback{max-width:98%;font-size:clamp(20px,11cqmin,52px);font-weight:900;line-height:1.05;overflow-wrap:anywhere}.feedback-time{font-size:clamp(17px,8cqmin,40px);font-weight:800;font-variant-numeric:tabular-nums}
-#floating{position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);z-index:3;display:flex;align-items:center;gap:8px;padding:5px 5px 5px 14px;border:1px solid var(--line);border-radius:99px;background:var(--paper);color:var(--text);box-shadow:0 6px 22px #0002;font-size:13px;font-weight:850;white-space:nowrap}
-#floating[data-players="1"]{top:calc(12px + env(safe-area-inset-top));right:12px;left:auto;transform:none}
-#floating button{height:35px;width:35px;display:grid;place-items:center;border:0;border-radius:50%;background:var(--soft);color:var(--text);font-weight:800}
+#floating{position:fixed;bottom:calc(10px + env(safe-area-inset-bottom));left:calc(10px + env(safe-area-inset-left));z-index:3;display:flex;align-items:center;gap:5px;padding:3px 3px 3px 9px;border:1px solid var(--line);border-radius:99px;background:var(--paper);color:var(--text);box-shadow:0 3px 12px #0002;font-size:12px;font-weight:850;white-space:nowrap;font-variant-numeric:tabular-nums}
+#floating button{height:30px;width:30px;display:grid;place-items:center;border:0;border-radius:50%;background:var(--soft);color:var(--text);font-weight:800}
 #overlay{position:fixed;inset:0;z-index:5;overflow-y:auto;-webkit-overflow-scrolling:touch;overscroll-behavior:contain;background:var(--bg);padding:calc(16px + env(safe-area-inset-top)) max(16px,env(safe-area-inset-right)) calc(24px + env(safe-area-inset-bottom)) max(16px,env(safe-area-inset-left))}
 #overlay.off{display:none}.shell{max-width:800px;margin:0 auto}.shell-home{max-width:750px}
 .topbar{display:flex;align-items:center;justify-content:space-between;gap:12px;margin:6px 0 19px}
 .site-title{font-size:clamp(30px,7vw,48px);letter-spacing:-.05em;line-height:1.04;font-weight:900;margin:0}
 .theme-button{min-width:48px;height:44px;padding:0 10px;display:flex;align-items:center;gap:7px;justify-content:center;border:1px solid var(--line);background:var(--paper);color:var(--text);border-radius:14px;font-size:20px;font-weight:850}
 .theme-button .theme-label{font-size:12px;font-weight:750;color:var(--muted)}
-.mode-list{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
-.mode-card{position:relative;min-width:0;min-height:112px;display:flex;align-items:flex-start;justify-content:center;flex-direction:column;gap:6px;text-align:left;padding:15px 16px;border:1px solid var(--line);border-radius:19px;background:var(--paper);color:var(--text)}
+.home-intro{margin:0 0 18px;color:var(--muted);font-size:15px;line-height:1.35}
+.mode-list{display:grid;grid-template-columns:minmax(0,1fr);gap:12px}
+.mode-card{position:relative;min-width:0;min-height:132px;display:grid;grid-template-columns:minmax(0,1fr) 112px;align-items:center;gap:14px;text-align:left;padding:16px;border:1px solid var(--line);border-radius:22px;background:var(--paper);color:var(--text)}
 .mode-card.featured{background:color-mix(in srgb,var(--accent) 8%,var(--paper));border-color:color-mix(in srgb,var(--accent) 26%,var(--line))}
 .mode-card.featured:nth-child(2){background:color-mix(in srgb,var(--p2) 9%,var(--paper));border-color:color-mix(in srgb,var(--p2) 26%,var(--line))}
-.mode-heading{display:flex;align-items:center;gap:8px;min-width:0;width:100%}
-.mode-icon{display:inline-grid;place-items:center;flex:none;min-width:23px;color:var(--accent);font-size:21px;font-weight:800}
-.mode-card strong{font-size:clamp(16px,2.5vw,20px);line-height:1.15;letter-spacing:-.025em;overflow-wrap:anywhere}
-.mode-card .desc{font-size:clamp(12px,2vw,14px);color:var(--muted);line-height:1.35;letter-spacing:-.005em}
+.mode-copy{min-width:0;display:flex;flex-direction:column;gap:6px;align-items:flex-start}
+.mode-card strong{font-size:clamp(19px,2.8vw,23px);line-height:1.08;letter-spacing:-.03em;overflow-wrap:anywhere}
+.mode-card .desc{font-size:clamp(13px,2.1vw,15px);color:var(--muted);line-height:1.35;letter-spacing:-.005em}
+.mode-preview{width:112px;height:92px;border-radius:18px;border:1px solid color-mix(in srgb,var(--text) 8%,var(--line));background:color-mix(in srgb,var(--soft) 70%,var(--paper));display:grid;place-items:center;padding:10px;overflow:hidden}
+.mode-preview .mini-grid{width:100%;height:100%;display:grid;grid-template-columns:repeat(3,1fr);gap:4px}
+.mode-preview .mini-grid span{display:block;border-radius:7px;background:#a95ae0}
+.mode-preview .mini-grid span.alt{background:#7c2cb4}
+.mode-preview .mini-seq{display:flex;align-items:center;justify-content:center;flex-wrap:wrap;gap:4px;width:100%}
+.mode-preview .mini-seq b,.mode-preview .mini-seq i{display:grid;place-items:center;min-width:22px;height:22px;padding:0 4px;border-radius:8px;background:var(--paper);border:1px solid var(--line);font-size:13px;font-style:normal;font-weight:850}
+.mode-preview .mini-seq i{background:color-mix(in srgb,var(--accent) 12%,var(--paper));color:var(--accent)}
+.mode-preview .mini-words{display:flex;flex-wrap:wrap;justify-content:center;gap:5px;width:100%}
+.mode-preview .mini-words span{padding:3px 7px;border-radius:999px;background:var(--paper);border:1px solid var(--line);font-size:12px;font-weight:800}
+.mode-preview .mini-lights{display:flex;gap:9px}.mode-preview .mini-lights span{width:22px;height:22px;border-radius:50%;background:#f1c250}.mode-preview .mini-lights span:last-child{background:#62d88a}
+.mode-preview .mini-eq{display:flex;align-items:center;justify-content:center;gap:5px;flex-wrap:wrap;width:100%;font-size:20px;font-weight:900;letter-spacing:-.04em}
+.mode-preview .mini-eq b{font-size:22px}.mode-preview .mini-eq i{font-style:normal;color:var(--accent)}
+.mode-preview .mini-color{font-size:20px;font-weight:900;letter-spacing:-.02em;color:#2f7ee3}
+.mode-preview .mini-logic{display:grid;grid-template-columns:repeat(2,1fr);gap:6px;width:100%}
+.mode-preview .mini-logic span{display:grid;place-items:center;height:26px;border-radius:9px;background:var(--paper);border:1px solid var(--line);font-size:13px;font-weight:850}
+.mode-preview .mini-logic span.ok{background:#dff6e7;border-color:#7fd0a2;color:#11663f}
 .mode-card:active{transform:scale(.985)}
 .back-link{border:0;background:none;color:var(--accent);font-size:16px;font-weight:800;padding:6px 0;margin-bottom:10px}
 .setup{max-width:620px;margin:0 auto}.setup h2{font-size:clamp(27px,6vw,38px);line-height:1.12;letter-spacing:-.04em;margin:4px 0 4px}.mode-summary{font-size:14px;color:var(--muted);margin:0 0 23px}
@@ -78,9 +95,9 @@ button,input{font:inherit}button{cursor:pointer;touch-action:manipulation}button
 .secondary{display:block;width:100%;min-height:49px;margin-top:10px;background:var(--paper);color:var(--text);border:1px solid var(--line);border-radius:15px;font-size:16px;font-weight:800}
 .result-head{text-align:center;margin:20px 0}.result-head h2{font-size:clamp(30px,6vw,44px);letter-spacing:-.04em;margin:0 0 6px}.result-head p{margin:0;color:var(--muted)}
 .ranks{display:grid;gap:8px}.rank{display:grid;grid-template-columns:28px 13px minmax(0,1fr) auto;align-items:center;gap:9px;padding:14px;background:var(--paper);border:1px solid var(--line);border-radius:16px}.rank .medal{font-size:24px}.rank .rankdot{height:12px;width:12px;border-radius:50%;background:var(--player)}.rank .points{font-size:19px;font-weight:900}.result-actions{margin-top:20px}
-@media(min-width:690px){.mode-list{grid-template-columns:repeat(4,minmax(0,1fr))}.mode-card{min-height:116px}.topbar{margin-bottom:24px}}
-@media(min-width:1000px){.mode-list{grid-template-columns:repeat(5,minmax(0,1fr))}}
-@media(max-width:370px){.mode-list{gap:8px}.mode-card{padding:12px 11px;min-height:105px}.mode-heading{gap:4px}.mode-icon{min-width:19px;font-size:19px}.mode-card strong{font-size:15px}.mode-card .desc{font-size:12px}}
+@media(min-width:690px){.mode-list{grid-template-columns:repeat(2,minmax(0,1fr))}.mode-card{min-height:140px}.topbar{margin-bottom:24px}}
+@media(min-width:1000px){.mode-list{grid-template-columns:repeat(3,minmax(0,1fr))}}
+@media(max-width:370px){.mode-list{gap:10px}.mode-card{grid-template-columns:minmax(0,1fr) 92px;padding:13px;min-height:122px}.mode-preview{width:92px;height:82px}.mode-card strong{font-size:17px}.mode-card .desc{font-size:12px}}
 @media(orientation:landscape){
  #arena[data-players="2"]{grid-template:minmax(0,1fr)/repeat(2,minmax(0,1fr))}
  #arena[data-players="2"] .p0{grid-row:1;grid-column:2}#arena[data-players="2"] .p1{grid-row:1;grid-column:1}
@@ -89,6 +106,20 @@ button,input{font:inherit}button{cursor:pointer;touch-action:manipulation}button
  #arena[data-players="2"] .p1 .board{transform:rotate(-90deg)}
 }
 @media(max-height:450px){#arena[data-players="4"] .board,#arena[data-players="3"] .board{gap:3px;padding-top:29px;padding-bottom:4px}.game-caption{font-size:clamp(14px,6cqmin,21px)}.game-main{font-size:clamp(23px,16cqmin,80px)}.choice{min-height:clamp(29px,13cqmin,65px)}.player-tag{padding:3px 8px}}
+@media(orientation:landscape) and (max-height:500px){
+ #arena[data-players="3"] .board.sight-layout,#arena[data-players="4"] .board.sight-layout{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);grid-template-rows:minmax(0,1fr);align-items:center;justify-items:center;gap:6px;padding:30px 12px 7px}
+ #arena[data-players="3"] .sight-layout .game-caption,#arena[data-players="4"] .sight-layout .game-caption{grid-column:1;grid-row:1;font-size:clamp(12px,5cqmin,20px)}
+ #arena[data-players="3"] .sight-layout .sight-grid,#arena[data-players="4"] .sight-layout .sight-grid{grid-column:2;grid-row:1;width:min(100%,calc(100cqh - 8px));max-width:100%;align-self:center}
+}
+
+@media(orientation:landscape) and (max-height:350px){
+ #arena[data-players="3"] .board.sequence-layout,#arena[data-players="4"] .board.sequence-layout{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);grid-template-rows:auto auto;align-content:center;justify-items:center;gap:3px;padding:27px 6px 3px}
+ #arena[data-players="3"] .sequence-layout .game-caption,#arena[data-players="4"] .sequence-layout .game-caption{grid-column:1;grid-row:1;align-self:end;font-size:clamp(11px,4cqmin,16px)}
+ #arena[data-players="3"] .sequence-layout .sequence-items,#arena[data-players="4"] .sequence-layout .sequence-items{grid-column:1;grid-row:2;align-self:start;gap:2px}
+ #arena[data-players="3"] .sequence-layout .sequence-number,#arena[data-players="4"] .sequence-layout .sequence-number{min-width:clamp(24px,8cqmin,40px);min-height:clamp(28px,8cqmin,42px);padding:3px;font-size:clamp(13px,6cqmin,21px);border-radius:7px}
+ #arena[data-players="3"] .sequence-layout .choices,#arena[data-players="4"] .sequence-layout .choices{grid-column:2;grid-row:1/span 2;align-self:center;width:100%;gap:4px}
+ #arena[data-players="3"] .sequence-layout .choice,#arena[data-players="4"] .sequence-layout .choice{min-height:42px;font-size:15px;padding:3px 2px}
+}
 @media(prefers-reduced-motion:reduce){*,*::before,*::after{transition-duration:.01ms!important}}
 </style>
 </head>
@@ -147,8 +178,20 @@ function bar(){return `<header class="topbar"><h1 class="site-title">Blitz Duell
 function hookTheme(){let b=$('#theme-toggle');if(b)b.onclick=()=>{cfg.theme={auto:'light',light:'dark',dark:'auto'}[cfg.theme];save('bd_cfg',cfg);applyTheme();const fresh=document.createElement('div');fresh.innerHTML=themeControl();b.replaceWith(fresh.firstChild);hookTheme()}}
 function stopTimer(){if(match){clearTimeout(match.timer);match.timer=null}}
 function home(){stopTimer();match=null;arena.innerHTML='';arena.dataset.scene='idle';floating.hidden=true;
-  const modeCard=(key,featured=false)=>{let t=MODES[key];return `<button class="mode-card ${featured?'featured':''}" data-mode="${key}"><strong>${t.name}</strong><span class="desc">${t.desc}</span></button>`};
-  overlay.innerHTML=`<div class="shell shell-home">${bar()}<div class="mode-list">${['brain','mix','math','memory','sequence','words','logic','go','color','sight'].map((k,i)=>modeCard(k,i<2)).join('')}</div></div>`;
+  const preview=(key)=>({
+    brain:`<div class="mode-preview"><div class="mini-seq"><b>5</b><b>8</b><b>11</b><i>?</i></div></div>`,
+    mix:`<div class="mode-preview"><div class="mini-grid"><span style="background:#69d58e"></span><span style="background:#8d61da"></span><span style="background:#f0b546"></span><span style="background:#ea7c68"></span><span class="alt"></span><span style="background:#59a0f2"></span><span style="background:#5cc8a5"></span><span style="background:#ef8fb2"></span><span style="background:#a95ae0"></span></div></div>`,
+    math:`<div class="mode-preview"><div class="mini-eq"><b>8</b><span>+</span><b>5</b><i>= ?</i></div></div>`,
+    memory:`<div class="mode-preview"><div class="mini-words"><span>Blume</span><span>Brücke</span><span>Wiese</span></div></div>`,
+    sequence:`<div class="mode-preview"><div class="mini-seq"><b>3</b><b>6</b><b>9</b><i>?</i></div></div>`,
+    words:`<div class="mode-preview"><div class="mini-seq"><b>S</b><b>U</b><b>A</b><b>H</b><i>?</i></div></div>`,
+    logic:`<div class="mode-preview"><div class="mini-logic"><span>14</span><span>19</span><span class="ok">24</span><span>27</span></div></div>`,
+    go:`<div class="mode-preview"><div class="mini-lights"><span></span><span></span><span></span></div></div>`,
+    color:`<div class="mode-preview"><div class="mini-color">BLAU</div></div>`,
+    sight:`<div class="mode-preview"><div class="mini-grid">${Array.from({length:9},(_,i)=>`<span class="${i===4?'alt':''}"></span>`).join('')}</div></div>`
+  }[key]);
+  const modeCard=(key,featured=false)=>{let t=MODES[key];return `<button class="mode-card ${featured?'featured':''}" data-mode="${key}"><div class="mode-copy"><strong>${t.name}</strong><span class="desc">${t.desc}</span></div>${preview(key)}</button>`};
+  overlay.innerHTML=`<div class="shell shell-home">${bar()}<p class="home-intro">Wähle ein Spiel. Tippen und direkt loslegen.</p><div class="mode-list">${['brain','mix','math','memory','sequence','words','logic','go','color','sight'].map((k,i)=>modeCard(k,i<2)).join('')}</div></div>`;
   overlay.classList.remove('off');hookTheme();overlay.querySelectorAll('[data-mode]').forEach(b=>b.onclick=()=>setup(b.dataset.mode));overlay.scrollTop=0;
 }
 function segments(key,values,labels){return `<div class="segments" role="group">${values.map((v,i)=>`<button type="button" data-option="${key}" data-value="${v}" class="${cfg[key]===v?'active':''}" aria-pressed="${cfg[key]===v}">${labels?labels[i]:v}</button>`).join('')}</div>`}
@@ -172,11 +215,14 @@ function render(){if(!match)return;let M=match;$('#round-indicator').textContent
     else{
       body=`<div class="game-caption">${escapeHTML(v.title||'')}</div>`;
       if(v.main!=null)body+=`<div class="game-main ${v.mainColor?'colored':''}" ${v.mainColor?`style="color:${v.mainColor}"`:''}>${escapeHTML(v.main)}</div>`;
+      if(v.series)body+=`<div class="sequence-items" aria-label="Zahlenfolge ${escapeHTML(v.series.join(', '))}, welche Zahl folgt?">${[...v.series,'?'].map((n,i)=>`<span class="sequence-number${i===v.series.length?' missing':''}">${escapeHTML(n)}</span>`).join('')}</div>`;
       if(v.words)body+=`<div class="memory-items">${v.words.map(w=>`<span>${escapeHTML(w)}</span>`).join('')}</div>`;
       if(v.subtitle)body+=`<div class="game-sub">${escapeHTML(v.subtitle)}</div>`;
       if(v.options)body+=`<div class="choices">${v.options.map(o=>`<button class="choice" data-answer="${escapeHTML(o)}">${escapeHTML(o)}</button>`).join('')}</div>`;
       if(v.grid)body+=`<div class="sight-grid" style="grid-template-columns:repeat(${v.grid.n},1fr)">${Array.from({length:v.grid.n*v.grid.n},(_,i)=>`<button class="sight-cell" data-answer="${i}" aria-label="Feld ${i+1}" style="background:hsl(${v.grid.hue} 68% ${i===v.grid.odd?v.grid.alt:55}%)"></button>`).join('')}</div>`;
     }
+    card.querySelector('.board').classList.toggle('sight-layout',!!v.grid&&!fb);
+    card.querySelector('.board').classList.toggle('sequence-layout',!!v.series&&!fb);
     card.querySelector('.board').innerHTML=`<div class="player-tag"><span class="dot"></span><span class="label">${escapeHTML(M.players===1?'Du':label(p))}</span><b>${M.scores[p]}</b></div>${body}`;
   });
 }
@@ -218,7 +264,7 @@ function generate(type,d){
     if(d===0){let x=2+random(13),step=2+random(5);series=Array.from({length:4},(_,i)=>x+i*step);answer=x+4*step}
     else if(d===1){let x=2+random(10),step1=2+random(4),step2=step1+2+random(4);series=[x,x+step1,x+step1+step2,x+2*step1+step2,x+2*step1+2*step2];answer=series[4]+step1}
     else{let x=2+random(5),inc=2+random(3);series=[x];for(let i=1;i<5;i++)series.push(series[i-1]+inc*i);answer=series[4]+inc*5}
-    return{answer:String(answer),view:{title:'Nächste Zahl?',main:series.join(' · ')+' · ?',options:numberOptions(answer,[5,10,18][d])}};
+    return{answer:String(answer),view:{title:'Nächste Zahl?',series,options:numberOptions(answer,[5,10,18][d])}};
   }
   if(type==='words'){
     let selection=sample(ANAGRAMS[d],4),answer=selection[0],letters=answer.split(''),mixed;
